@@ -1,7 +1,7 @@
 # Metrician
 ![GitHub all releases](https://img.shields.io/github/downloads/tedtroxell/metrician/total?logo=github&style=flat-square)
 ![GitHub](https://img.shields.io/github/license/tedtroxell/metrician?style=flat-square)
-![Github](https://github.com/tedtroxell/metrician/actions/workflows/usability.yml/badge.svg)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/tedtroxell/metrician/Usability?style=flat-square)
 
 Metrician is a small lightweight module that easily and automatically records performance metrics for you. 
 Right now, Metrician is only compatible with Pytorch. There are a lot of great tools out there like [Pytoch Lighting](https://github.com/PyTorchLightning/pytorch-lightning) that have built in loggers. Although there is nothing wrong with these tools (in fact, I'm a big fan), I find myself writing the same few lines of code over and over and over again, just to log the same metrics. I hate redundancy, so I wrote a tool to fix that issue. You're still able to use the same libraries, but now you don't have to code as much.
