@@ -1,5 +1,5 @@
 
-name: Run Python Tests
+name: Usability
 on:
   push:
     branches: [ main ]
