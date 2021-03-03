@@ -1,0 +1,23 @@
+# tensorboad
+torch
+crc32c
+soundfile
+tensorboardx
+pytest
+flaky
+pytest-assume
+pytest-cagoule
+pytest-cov
+pytest-csv
+pytest-expect
+pytest-html
+pytest-json
+pytest-metadata
+pytest-pdb
+pytest-pylint
+pytest-raises
+pytest-rerunfailures
+pytest-timeout
+pytest-xdist
+python-dateutil
+pytest_tornasync
