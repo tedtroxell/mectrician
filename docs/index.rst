@@ -12,7 +12,8 @@ Welcome to metrician's documentation!
    :maxdepth: 3
    :caption: Contents
    
-   signals
+   Monitors
+   Signals
    modules
 
 
