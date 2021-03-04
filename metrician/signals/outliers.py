@@ -18,6 +18,7 @@ class MomentOutlierSignal(BaseSignal):
     
 
     def __init__(self):
+        super( self.__class__,self ).__init__()
         """[summary]
         """        
         self._index = self._eta = self._rho = self._tau = self._phi = 0.0

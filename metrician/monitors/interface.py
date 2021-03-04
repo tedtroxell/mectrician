@@ -2,4 +2,5 @@ from metrician.interface import BaseInterface
 
 class BaseMonitorInterface(BaseInterface):
 
-    pass
+    captured_signals = []
+    

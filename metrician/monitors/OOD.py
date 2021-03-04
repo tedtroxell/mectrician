@@ -3,6 +3,7 @@ from torch.utils.data import Dataset
 from typing import Union,Iterable
 from metrician.signals.outliers import MomentOutlierSignal as MOS
 from metrician.signals.interface import BaseSignal
+from metrician.recorders.interface import BaseRecorderInterface
 from .interface import BaseMonitorInterface
 from torch import Tensor
 import metrician
@@ -22,8 +23,10 @@ class OutOfDistributionMonitor(BaseMonitorInterface):
                     dataset : Union[Dataset,Iterable],
                     data_type : Union[str,metrician.DatasetType] = None,
                     signal  : BaseSignal = MOS(),
+                    recorder : BaseRecorderInterface = None,
                     slug : str = 'Out Of Distribution Sample'
                 ):
+        super( self.__class__,self ).__init__()
         assert data_type is None and dataset.__class__.__name__ in metrician.DATASET_INPUT_TYPES, 'If your dataset is not a torch dataset you have to specify the input data type [image,audio,text,tabular] '
         self.dataset_length = len(dataset)
         self.dtype = data_type if data_type is not None else metrician.DATASET_INPUT_TYPES[dataset.__class__.__name__]
@@ -31,8 +34,6 @@ class OutOfDistributionMonitor(BaseMonitorInterface):
         self.index = 0
         self.dataset = dataset
         self.slug = slug
-        self.testing = False
-        self.oods = []
         self.writer = self._write_fn()
 
 
@@ -53,6 +54,6 @@ class OutOfDistributionMonitor(BaseMonitorInterface):
                 self.dataset[ self.index % self.dataset_length ][0], # take the first index since it's the input
                 self.index
             )
-            if self.testing:self.oods.append( self.index )
+            self.oods.append( self.index % self.dataset_length )
         self.index += 1
 
