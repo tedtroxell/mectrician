@@ -15,7 +15,11 @@ class MomentOutlierSignal(BaseSignal):
         self._min   = self._max = float('nan')
         self.n_samples_needed = 10000000
 
-    def forward(self, x : Tensor) -> int:
+    def forward(self, x : Tensor) -> bool:
+        '''
+            :param x: torch.Tensor
+            :returns bool: if the input tensor is an outlier
+        '''
         if self._index == 0.0:
             self._min = x
             self._max = x
@@ -49,6 +53,9 @@ class MomentOutlierSignal(BaseSignal):
     def _is_outlier(self, x : Tensor) -> bool:
         '''
             weight the amount of standard deviation to use based on kurtosis of the data
+
+            :param x: Pytorch Tensor
+            :returns bool: Whether the inputed tensor is an outlier or not
         '''
         m = self.mean
         std = math.sqrt( self.var )
