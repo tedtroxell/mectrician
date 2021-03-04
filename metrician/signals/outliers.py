@@ -62,7 +62,7 @@ class MomentOutlierSignal(BaseSignal):
         '''
         import math
         # 90% confidence interval: 1.645^2 = 2.7225
-        std = math.sqrt( self._rho / (self._index - 1) )
+        std = math.sqrt( self._rho / (self._index ) )
         return int( (2.7225 * std * (1-std))/ .01)+1
 
     @property
