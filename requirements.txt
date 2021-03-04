@@ -1,4 +1,12 @@
 # tensorboad
+scipy
+sklearn
+Sphinx
+m2r
+recommonmark
+sphinx-markdown-tables
+numpy
+pandas
 torch
 crc32c
 soundfile
