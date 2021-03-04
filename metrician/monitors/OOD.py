@@ -8,12 +8,14 @@ from torch import Tensor
 import metrician
 
 class OutOfDistributionMonitor(BaseMonitorInterface):
-
-    '''
+    """
         Default monitor for out of distribution losses.
 
         Basically this sets up a monitor that calculates whether some output is an outlier and records the input so you can evaluate it later on
-    '''
+
+    Args:
+        BaseMonitorInterface ([type]): [description]
+    """    
 
     def __init__(   
                     self,
@@ -38,6 +40,12 @@ class OutOfDistributionMonitor(BaseMonitorInterface):
                     self,
                     x : Tensor
                 ) -> None:
+        """
+
+        Args:
+            x (Tensor): [description]
+        """    
+            
         ood = self.signal( x )
         if ood > 0:
             self.writer(

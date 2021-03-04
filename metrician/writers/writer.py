@@ -9,10 +9,15 @@ class MetricWriter(BaseWriterInterface):
     """
         Metric Writer is a lightweight class that will automatically log metrics during a training loop.
     """
-
+        
     def __init__(   self,
                     cfg:Union[dict,DefaultCFG] = None
                 ): 
+        """
+
+        Args:
+            cfg (Union[dict,DefaultCFG], optional): [description]. Defaults to None.
+        """        
         super(self.__class__,self).__init__()
         
         import sklearn.metrics as metrics
@@ -35,9 +40,11 @@ class MetricWriter(BaseWriterInterface):
                     index : Optional[int] = -1
                 ) -> Union[ 'loss_fn',MetricWriter ]:
 
-        """
+        """[summary]
 
-        """
+        Returns:
+            [type]: [description]
+        """        
         self.index += 1
         output,labels = self.cfg.sanitize_inputs( _output, _labels )
         for metric in self.cfg.metrics:

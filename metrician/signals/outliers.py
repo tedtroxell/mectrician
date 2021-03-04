@@ -3,14 +3,23 @@ from .interface import BaseSignal
 from torch import Tensor
 import math
 class MomentOutlierSignal(BaseSignal):
-    '''
+    """
         Real time outlier detection for metrics
 
         This class records moments in order to estimate the likelihood of an outlier when data is passed to it. 
         If data may be an outlier, such as something that causes a really high error, this will record the index so you can view it later
-    '''
+
+    Args:
+        BaseSignal ([type]): [description]
+
+
+    """
+
+    
 
     def __init__(self):
+        """[summary]
+        """        
         self._index = self._eta = self._rho = self._tau = self._phi = 0.0
         self._min   = self._max = float('nan')
         self.n_samples_needed = 10000000
@@ -19,7 +28,7 @@ class MomentOutlierSignal(BaseSignal):
         '''
             :param x: torch.Tensor
             :returns bool: if the input tensor is an outlier
-        '''
+        '''       
         if self._index == 0.0:
             self._min = x
             self._max = x
