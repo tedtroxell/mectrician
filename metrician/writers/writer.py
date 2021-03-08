@@ -3,7 +3,7 @@ from typing import Union,Optional
 from metrician.configs.cfg import DefaultCFG
 from torch import Tensor
 from metrician.writers.interface import BaseWriterInterface
-
+from metrician.signals import SignalDataKeys
 MetricWriter = None
 class MetricWriter(BaseWriterInterface):
     """
@@ -64,7 +64,12 @@ class MetricWriter(BaseWriterInterface):
             self.writer.add_scalar(self.cfg.main_tag+'_loss',loss.item(),index if index > -1 else self.index)
             if len(self.montitors) > 0:
                 l = loss.item()
-                for k,v in self.montitors.items():v( l )
+                pckt = {
+                    SignalDataKeys.LOSS:l,
+                    SignalDataKeys.PREDICTIONS:_output,
+                    SignalDataKeys.LABELS:_labels
+                }
+                for k,v in self.montitors.items():v( **pckt )
             return loss
 
         return self

@@ -1,7 +1,40 @@
 import unittest
 from unittest import TestCase
 import torch
-from metrician.signals.outliers import MomentOutlierSignal
+from .outliers import MomentOutlierSignal
+from .loss import LossSignal
+from pylab import *
+import math
+class LossTest(TestCase):
+
+    def test_scalar_mean(self):
+        
+        # create pareto like distribution
+        r = torch.randn( 100 )
+        x = torch.arange( 100 ).float()+1
+        x = (2.71/(torch.log( x )+.165))
+        x += r*.75 # throw in some noise
+        signal      =  LossSignal() # MomentOutlierSignal()#
+        outliers    = [ ]
+        means       = []
+        var         = [[],[]]
+        ks = []
+        for i,x_i in enumerate(r):
+            is_outlier = signal(x_i) 
+            if is_outlier: outliers.append(i)
+            means.append( float( signal.mean ) )
+            var[0].append( float( signal.mean + math.sqrt(signal.var) ) )
+            var[1].append( float( signal.mean - math.sqrt(signal.var) ) )
+            ks.append( signal.kurtosis )
+        self.assertLessEqual(
+            len(outliers)/len(x),
+            .32,
+            'Too many Loss outliers found'
+        )
+        
+        
+
+
 class MomentOutlierTest(TestCase):
     
     def setUp(self):
@@ -50,4 +83,4 @@ class MomentOutlierTest(TestCase):
         )
 
 if __name__ == '__main__':
-    unittest.main()     
+    unittest.main()  

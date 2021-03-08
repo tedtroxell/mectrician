@@ -3,6 +3,7 @@ scipy
 sklearn
 Sphinx
 m2r
+lime
 recommonmark
 sphinx-markdown-tables
 numpy

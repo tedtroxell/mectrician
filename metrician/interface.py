@@ -1,6 +1,6 @@
 import inspect
 from typing import Union
-from tensorboardX import GlobalSummaryWriter
+from tensorboardX import GlobalSummaryWriter,SummaryWriter
 BaseInterface=None
 class BaseInterface(object):
 
@@ -19,6 +19,9 @@ class BaseInterface(object):
             # 'tabular':writer.add_histogram,
             DatasetType.image:writer.add_image
         }[ cls.dtype ]
+    
+    def _get_writer(cls) -> SummaryWriter():
+        return GlobalSummaryWriter.getSummaryWriter()
 
     def __call__(cls,*args,**kwargs) -> 'Data':
         output = cls.forward(*args,**kwargs)
