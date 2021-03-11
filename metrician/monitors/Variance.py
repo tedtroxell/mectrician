@@ -10,7 +10,8 @@ from metrician.signals import SignalDataKeys
 from metrician.explainations.interface import BaseExplainerInterface
 from torch import Tensor
 import metrician
-class OutOfDistributionMonitor(BaseMonitorInterface):
+
+class Variance(BaseMonitorInterface):
     """
         Default monitor for out of distribution losses.
 
@@ -20,7 +21,7 @@ class OutOfDistributionMonitor(BaseMonitorInterface):
         :type BaseMonitorInterface: [type]
     """        
 
-        def __init__(   
+    def __init__(   
                     self,
                     dataset : Union[Dataset,Iterable],
                     data_type : Union[str,metrician.DatasetType] = None,
@@ -30,7 +31,6 @@ class OutOfDistributionMonitor(BaseMonitorInterface):
                     slug : str = 'Out Of Distribution Sample'
                 ):
         """
-
         :param dataset: [description]
         :type dataset: Union[Dataset,Iterable]
         :param data_type: [description], defaults to None
@@ -67,7 +67,7 @@ class OutOfDistributionMonitor(BaseMonitorInterface):
         if ood:
             for recorder in self.recorders:
                 self.writer(
-                    self.slug+'_'+signal.__class__.__name__,
+                    self.slug,
                     # take the first index since it's the input
                     recorder( self.dataset[ self._index % self.dataset_length ][0] ), 
                     self._index
