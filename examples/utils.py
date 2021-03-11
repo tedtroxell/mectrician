@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+import numpy as np
 
 class ClassificationModel(nn.Module):
     def __init__(self,input_size,output_size):
@@ -27,12 +28,11 @@ class GenericDataSet(torch.utils.data.Dataset):
         super(self.__class__,self).__init__()
         self.x = x_dtype(x)
         self.y = y_dtype(y)
-        self.ds = zip( x,y )
         self.length = len(x)
         self.input_size = x.size()[-1]
         self.output_size = y.size()[-1]
 
-    def __getitem__(self,index): return next( self.ds )
+    def __getitem__(self,index): return self.x[index],self.y[index]
 
     def __len__(self):return self.length
 
@@ -96,4 +96,18 @@ class Dataset:
             self._text_classification = ClassificationDataSet()
         return self._text_classification
             
+def injectOutliers(dataset : GenericDataSet):
+    ratio = .125
+    size = len(dataset)
+    n_outliers = int(ratio*size)
+    outlier_indexes = torch.randperm(size)[:n_outliers]
+    x = dataset.x
+
+    median = x.median(dim=-1)
+    mean = x.mean(dim=-1)
+    std = x.std(dim=-1)
     
+    x[outlier_indexes] = torch.normal( mean+median,std-median )
+    dataset.x = x
+
+    return dataset

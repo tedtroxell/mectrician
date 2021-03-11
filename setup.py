@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="metrician", # Replace with your own username
-    version="0.0.1",
+    name="metrician",
+    version="0.0.3",
     author="Ted Troxell",
     author_email="ted@tedtroxell.com",
     description="Automatic metric logging for Pytorch",
@@ -20,6 +20,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    packages=setuptools.find_packages(),
+    packages=['metrician','metrician.dataset', 'metrician.recorders', 'metrician.writers', 'metrician.configs', 'metrician.signals', 'metrician.monitors', 'metrician.explainations'],#setuptools.find_packages(),
     python_requires='>=3.6',
 )

@@ -31,9 +31,6 @@ class LossTest(TestCase):
             .32,
             'Too many Loss outliers found'
         )
-        
-        
-
 
 class MomentOutlierTest(TestCase):
     

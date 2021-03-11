@@ -20,7 +20,7 @@ class OutOfDistributionMonitor(BaseMonitorInterface):
         :type BaseMonitorInterface: [type]
     """        
 
-        def __init__(   
+    def __init__(   
                     self,
                     dataset : Union[Dataset,Iterable],
                     data_type : Union[str,metrician.DatasetType] = None,
